@@ -174,7 +174,7 @@ terraform destroy
 ![Website rodando](images/05-website-nginx.jpeg)
 
 ### Docker PS mostrando containers 
-![Docker PS](images\06-docker-ps.jpeg)
+![Docker PS](images/06-docker-ps.jpeg)
 
 ---
 
