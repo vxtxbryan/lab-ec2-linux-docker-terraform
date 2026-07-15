@@ -20,7 +20,7 @@ O Terraform provisiona uma infraestrutura virtual seguindo o princípio de privi
 * **Internet Gateway (IGW):** Componente lógico que permite a comunicação bidirecional entre os recursos da VPC e a internet.
 * **Tabela de Rotas (Route Table):** Roteamento explícito direcionando todo o tráfego de saída (`0.0.0.0/0`) para o Internet Gateway.
 * **Security Group (Firewall Virtual):** Regras restritas para controle de fluxo:
-  * **Ingress (Entrada):** Liberação das portas `TCP/22` (SSH), `TCP/80` (HTTP) e `TCP/443` (HTTPS).
+  * **Ingress (Entrada):** Liberação das portas `TCP/22` (SSH), `TCP/80` (HTTP), `TCP/443` (HTTPS) e `TCP/3000` (API Node, exposta para fins de demonstração).
   * **Egress (Saída):** Liberação de todo o tráfego de saída, permitindo que o SO baixe e atualize pacotes necessários.
 * **Instância EC2:** Servidor virtual executando o **Ubuntu Server 22.04 LTS**, cuja AMI é obtida dinamicamente via `data source` oficial da Canonical.
 
@@ -40,7 +40,7 @@ VPC 10.0.0.0/16
 Subnet Pública 10.0.1.0/24
    │
    ▼
-EC2 (Ubuntu 22.04) ── Security Group (22 / 80 / 443)
+EC2 (Ubuntu 22.04) ── Security Group (22 / 80 / 443 / 3000)
    │
    ▼
 Docker Engine
@@ -156,6 +156,28 @@ terraform destroy
 
 ---
 
+## 📸 Demonstração
+
+### Plano de execução (`terraform plan`)
+![Terraform plan](images/01-terraform-plan.png)
+
+### Provisionamento em andamento
+![Terraform apply](images/02-terraform-apply-creating.png)
+
+### Provisionamento concluído
+![Apply complete](images/03-terraform-apply-complete.png)
+
+### API Node respondendo (porta 3000)
+![API Online](images/04-api-porta-3000.png)
+
+### Website Nginx respondendo (porta 80)
+![Website rodando](images/05-website-nginx.png)
+
+### Docker PS mostrando containers 
+![Docker PS](images\06-docker-ps.jpg)
+
+---
+
 ## ⚙️ Variáveis (`variables.tf`)
 
 | Nome            | Descrição                                                            | Tipo   | Padrão         |
@@ -211,7 +233,8 @@ Todo o processo é logado em `/var/log/user-data.log` para facilitar troubleshoo
   terraform.tfvars
   ```
 * O `terraform.tfstate` guarda o estado real da infraestrutura (incluindo IDs e metadados de recursos) e **não deve ser commitado**. Para uso em equipe, considere um backend remoto (ex: S3 + DynamoDB para locking).
-* As portas 22/80/443 estão liberadas para `0.0.0.0/0` neste projeto por simplicidade didática. Em produção, restrinja a porta 22 ao seu IP ou use um bastion host / SSM Session Manager.
+* As portas 22/80/443/3000 estão liberadas para `0.0.0.0/0` neste projeto por simplicidade didática. Em produção, restrinja a porta 22 ao seu IP, evite expor a API diretamente (use um proxy reverso ou API Gateway) e use um bastion host / SSM Session Manager para acesso administrativo.
+* Rotacione a Key Pair (`key-ec2`) caso ela já tenha sido exposta publicamente.
 
 ---
 

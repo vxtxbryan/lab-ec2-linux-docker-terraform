@@ -116,6 +116,14 @@ resource "aws_security_group" "web_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+ ingress {
+    description = "API Node"
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # Saída (Egress) - Crucial para que o User Data consiga baixar o Nginx
   egress {
     from_port   = 0
