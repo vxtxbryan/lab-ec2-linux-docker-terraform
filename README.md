@@ -234,7 +234,6 @@ Todo o processo é logado em `/var/log/user-data.log` para facilitar troubleshoo
   ```
 * O `terraform.tfstate` guarda o estado real da infraestrutura (incluindo IDs e metadados de recursos) e **não deve ser commitado**. Para uso em equipe, considere um backend remoto (ex: S3 + DynamoDB para locking).
 * As portas 22/80/443/3000 estão liberadas para `0.0.0.0/0` neste projeto por simplicidade didática. Em produção, restrinja a porta 22 ao seu IP, evite expor a API diretamente (use um proxy reverso ou API Gateway) e use um bastion host / SSM Session Manager para acesso administrativo.
-* Rotacione a Key Pair (`key-ec2`) caso ela já tenha sido exposta publicamente.
 
 ---
 
