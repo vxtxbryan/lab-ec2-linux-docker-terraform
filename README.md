@@ -159,19 +159,19 @@ terraform destroy
 ## 📸 Demonstração
 
 ### Plano de execução (`terraform plan`)
-![Terraform plan](images/01-terraform-plan.png)
+![Terraform plan](images/01-terraform-plan.jpeg)
 
 ### Provisionamento em andamento
-![Terraform apply](images/02-terraform-apply-creating.png)
+![Terraform apply](images/02-terraform-apply-creating.jpeg)
 
 ### Provisionamento concluído
-![Apply complete](images/03-terraform-apply-complete.png)
+![Apply complete](images/03-terraform-apply-complete.jpeg)
 
 ### API Node respondendo (porta 3000)
-![API Online](images/04-api-porta-3000.png)
+![API Online](images/04-api-porta-3000.jpeg)
 
 ### Website Nginx respondendo (porta 80)
-![Website rodando](images/05-website-nginx.png)
+![Website rodando](images/05-website-nginx.jpeg)
 
 ### Docker PS mostrando containers 
 ![Docker PS](images\06-docker-ps.jpg)
